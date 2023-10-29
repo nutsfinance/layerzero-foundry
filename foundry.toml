@@ -9,6 +9,7 @@ remappings = [
   "@layerzero/=lib/@layerzero/contracts/lzApp/",
   "forge-std/=lib/forge-std/src/",
   "@types/=src/types/",
+  "@interfaces/=src/interfaces/",
 ]
 
 [profile.optimized]
