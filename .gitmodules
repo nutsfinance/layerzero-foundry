@@ -4,3 +4,6 @@
 [submodule "lib/@layerzero"]
 	path = lib/@layerzero
 	url = https://github.com/LayerZero-Labs/solidity-examples/
+[submodule "lib/prb-test"]
+	path = lib/prb-test
+	url = https://github.com/PaulRBerg/prb-test
