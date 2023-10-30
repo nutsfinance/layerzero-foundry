@@ -6,7 +6,9 @@ optimizer_runs = 10_000
 fs_permissions = [{ access = "read-write", path = "./"}]
 remappings = [
   "prb-test/=lib/prb-test/src/",
-  "@layerzero/=lib/@layerzero/contracts/lzApp/",
+  "@openzeppelin/=lib/openzeppelin-contracts/",
+  "@lz/=lib/@layerzero/contracts/lzApp/",
+  "@layerzero/=test/utils/",
   "forge-std/=lib/forge-std/src/",
   "@types/=src/types/",
   "@interfaces/=src/interfaces/",
