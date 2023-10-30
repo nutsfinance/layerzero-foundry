@@ -10,4 +10,13 @@ library DataTypes {
         uint256 gasLimit;
         bytes payload;
     }
+
+    struct sendData {
+        uint16 targetChainId;
+        bytes sourceAddress;
+        address targetAddress;
+        uint64 nonce;
+        uint256 extraGas;
+        bytes payload;
+    }
 }
