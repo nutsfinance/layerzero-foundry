@@ -1,35 +1,37 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {TestBase} from "./utils/TestBase.sol";
-import {LzApp} from "@layerzero/LzApp.sol";
+import {AppBase} from "./utils/AppBase.sol";
+import {ILayerZeroEndpoint} from "@layerzero/interfaces/ILayerZeroEndpoint.sol";
+import {LzApp} from "@lz/LzApp.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract AppContract is TestBase {
-    constructor(uint16 currentChain, address endpoint) LzApp(endpoint) {
+contract AppContract is Ownable, AppBase {
+    constructor(uint16 currentChain, address endpoint) Ownable() LzApp(endpoint) {
         chainId = currentChain;
+        LayerZeroEndpoint = ILayerZeroEndpoint(endpoint);
     }
 
     function send(
         uint16 targetChain,
-        address targetAddress,
-        uint8 testId,
-        uint256 timestamp
+        bytes memory pathTargetSource,
+        bytes memory payload
     )
         external
         payable
     {
-        // Pack your data as needed
-        bytes memory payload = abi.encode(targetChain, testId, timestamp);
-
-        // Send
-        lzSend(
+        /// @dev Send as you normally would
+        LayerZeroEndpoint.send{value: msg.value}(
             targetChain,
-            targetAddress,
-            abi.encodePacked(targetAddress, address(this)), // 40 bytes path
-            payload
+            pathTargetSource,
+            payload,
+            payable(address(1)),
+            address(0),
+            bytes("")
         );
     }
 
+    /// @notice LayerZero handle override
     function lzReceive(
         uint16 sourceChain,
         bytes calldata, // sourceAddress,
